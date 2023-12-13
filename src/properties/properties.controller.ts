@@ -1,11 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
-import { PropertiesService } from './properties.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
+import { PropertiesService } from './properties.service';
 
 @Controller('properties')
 export class PropertiesController {
-  constructor(private readonly propertiesService: PropertiesService) { }
+  constructor(private readonly propertiesService: PropertiesService) {}
 
   @Post()
   create(@Body() createPropertyDto: CreatePropertyDto) {
@@ -13,10 +22,9 @@ export class PropertiesController {
   }
 
   @Get()
-  findAll(@Query() allQuery,) {
+  findAll(@Query() allQuery) {
     const { page } = allQuery;
-    return this.propertiesService.findAll(
-      Number(page), allQuery);
+    return this.propertiesService.findAll(Number(page), allQuery);
   }
 
   // @Get(':id')
@@ -25,7 +33,10 @@ export class PropertiesController {
   // }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePropertyDto: UpdatePropertyDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updatePropertyDto: UpdatePropertyDto,
+  ) {
     return this.propertiesService.update(+id, updatePropertyDto);
   }
 
